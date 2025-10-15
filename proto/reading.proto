@@ -1,0 +1,11 @@
+syntax = "proto3";
+package proto;
+option java_package = "proto";
+option java_multiple_files = true;
+message Reading {
+  string warehouseId = 1;
+  string sensorId = 2;
+  string type = 3;
+  double value = 4;
+  int64 timestamp = 5;
+}

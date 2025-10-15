@@ -1,0 +1,57 @@
+plugins {
+  id 'java'
+  id 'org.springframework.boot' version '3.3.3'
+  id 'io.spring.dependency-management' version '1.1.5'
+  id 'com.google.protobuf' version '0.9.4'
+}
+group = 'warehouse.monitoring'
+version = '1.0.0'
+java { toolchain { languageVersion = JavaLanguageVersion.of(17) } }
+
+bootJar {
+    archiveFileName = "app.jar"
+}
+
+repositories { mavenCentral() }
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter'
+  implementation 'org.springframework.boot:spring-boot-starter-amqp'
+  implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+  implementation 'com.google.protobuf:protobuf-java:3.25.1'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.mockito:mockito-core:5.11.0'
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.1"
+    }
+    generateProtoTasks {
+        all().configureEach { task ->
+            task.builtins {
+                java {
+                    option "lite"
+                }
+            }
+        }
+    }
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir "${rootProject.projectDir}/proto"
+        }
+        java {
+            srcDir "${project.buildDir}/generated/source/proto/main/java"
+        }
+    }
+}
+

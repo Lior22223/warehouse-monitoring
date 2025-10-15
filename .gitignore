@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+*.iml
+.gradle/
+build/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+*.log
+*.tmp
+# Safe to commit .env (contains no secrets)
+# .env

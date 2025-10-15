@@ -1,0 +1,117 @@
+version: "1.0"
+
+services:
+
+  traefik:
+    image: traefik:v3.1
+    command:
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--api.dashboard=true"
+    ports:
+      - "80:80"
+      - "8081:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "traefik.enable=true"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: redis:7
+    command: ["redis-server", "--maxmemory", "512mb", "--maxmemory-policy", "allkeys-lru"]
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  warehouse1:
+    build:
+      context: .
+      dockerfile: ./warehouse/Dockerfile
+    environment:
+      - WAREHOUSE_ID=wh1
+      - BROKER_HOST=rabbitmq
+      - RABBIT_HOST=rabbitmq
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - UDP_PORT_TEMP=3344
+      - UDP_PORT_HUM=3355
+    depends_on:
+      - rabbitmq
+    ports:
+      - "3344:3344/udp"
+      - "3355:3355/udp"
+    labels:
+      - "traefik.enable=false"  # Traefik не нужен для UDP
+    networks:
+      - default
+
+  warehouse2:
+    build:
+      context: .
+      dockerfile: ./warehouse/Dockerfile
+    environment:
+      - WAREHOUSE_ID=wh2
+      - BROKER_HOST=rabbitmq
+      - RABBIT_HOST=rabbitmq
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - UDP_PORT_TEMP=3344
+      - UDP_PORT_HUM=3355
+    depends_on:
+      - rabbitmq
+    ports:
+      - "4344:3344/udp"
+      - "4355:3355/udp"
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - default
+
+  central:
+    build:
+      context: .
+      dockerfile: ./central/Dockerfile
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - REDIS_HOST=redis
+      - TEMP_THRESHOLD=35
+      - HUM_THRESHOLD=50
+    depends_on:
+      - rabbitmq
+      - redis
+    labels:
+      - "traefik.http.routers.central.rule=PathPrefix(`/central`)"
+      - "traefik.http.services.central.loadbalancer.server.port=8080"
+    ports:
+      - "8080:8080"
+
+  analytics:
+    build:
+      context: .
+      dockerfile: ./analytics/Dockerfile
+    environment:
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+      - central
+    labels:
+      - "traefik.http.routers.analytics.rule=PathPrefix(`/analytics`)"
+      - "traefik.http.services.analytics.loadbalancer.server.port=8090"
+    ports:
+      - "8090:8080"

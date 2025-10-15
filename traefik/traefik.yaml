@@ -1,0 +1,9 @@
+api:
+  dashboard: true
+  debug: false
+entryPoints:
+  web:
+    address: ":${TRAEFIK_HTTP_PORT:-80}"
+providers:
+  docker:
+    exposedByDefault: false
